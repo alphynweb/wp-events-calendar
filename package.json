@@ -1,0 +1,19 @@
+{
+  "name": "alphynweb-events-calendar",
+  "version": "1.0.0",
+  "description": "Events Calendar For Wordress",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/alphynweb/wp-events-calendar.git"
+  },
+  "author": "Alphynweb",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/alphynweb/wp-events-calendar/issues"
+  },
+  "homepage": "https://github.com/alphynweb/wp-events-calendar#readme"
+}
