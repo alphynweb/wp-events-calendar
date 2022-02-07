@@ -1,0 +1,1 @@
+(()=>{var e,i,n;i=(e=window.wp).plugins.registerPlugin,n=e.editPost.PluginSidebar,i("misha-seo",{render:function(){return React.createElement(n,{name:"misha-seo",title:"SEO"},"hello world")}})})();

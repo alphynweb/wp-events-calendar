@@ -58,8 +58,21 @@ class Alphynweb_Events_Calendar_Admin {
         // Add admin menu
         add_action('admin_menu', array($this, 'add_alphynweb_events_calendar_admin_menu'), 9);
 
+        // Remove editor panels from sidebar
+        add_action('init', function () {
+            wp_enqueue_script('alphynweb-gutenberg-editor-panels', plugin_dir_url(__FILE__), 'js/alphynweb-gutenberg-editor-panels.js',
+                    array('wp-blocks', 'wp-edit-post'), false, false);
+        });
+
         // Fields for settings page
-        add_action('admin_init', array($this, 'register_and_build_settings_fields'));
+//        add_action('admin_init', array($this, 'register_and_build_settings_fields'));
+        // Regiter post type custom meta fields
+        add_action('init', array($this, 'register_post_type_custom_meta_fields'));
+
+        add_action('enqueue_block_editor_assets', function () {
+            wp_enqueue_script('alphynweb-gutenberg', plugin_dir_url(__FILE__) . 'js/alphynweb-gutenberg.build.js', array('wp-edit-post', 'wp-element', 'wp-components', 'wp-plugins', 'wp-data'), false, false);
+//            wp_enqueue_script($handle, $src, $deps, $ver, $in_footer)
+        });
     }
 
     public function register_custom_post_types() {
@@ -70,14 +83,14 @@ class Alphynweb_Events_Calendar_Admin {
             array(
                 'name' => 'Alphynweb Calendar Events',
                 'singular_name' => 'Alphynweb Calendar Event',
-                'add_new' => 'Add Alphynweb Calendar Event',
-                'add_new_item' => 'Add New Alphynweb Calendar Event',
-                'edit_item' => 'Edit Alphynweb Calendar Event',
-                'new_item' => 'New Alphynweb Calendar Event',
-                'view_item' => 'View Alphynweb Calendar Event',
-                'search_items' => 'Search Alphynweb Calendar Event',
-                'not_found' => 'No Alphynweb Calendar Events Found',
-                'not_found_in_trash' => 'No Alphynweb Calendar Events Found in Trash',
+                'add_new' => 'Add event',
+                'add_new_item' => 'Add new event',
+                'edit_item' => 'Edit event',
+                'new_item' => 'New event',
+                'view_item' => 'View event',
+                'search_items' => 'Search events',
+                'not_found' => 'No events found',
+                'not_found_in_trash' => 'No events found in trash',
                 'menu_name' => 'Alphynweb Calendar Events',
                 'name_admin_bar' => 'Alphynweb Calendar Events',
             ),
@@ -86,10 +99,13 @@ class Alphynweb_Events_Calendar_Admin {
             'exclude_from_search' => false,
             'show_ui' => true,
 //            'show_in_menu' => $this->plugin_name, // Use if it's to be a sub menu item below settings in the main one
-            'menu_position'  => 26, // Use if it's to be a seperate menu item from the main one
+            'menu_position' => 26, // Use if it's to be a seperate menu item from the main one
             'menu_icon' => 'dashicons-calendar-alt',
-            'supports' => array('title', 'thumbnail', 'custom_fields'),
-            'taxonomies' => array('category', 'post_tag'));
+//            'supports' => array('title', 'thumbnail', 'custom_fields'),
+            'show_in_rest' => true, // enable Gutenberg editor
+            'supports' => ['editor', 'title', 'custom-fields'], // Need custom-fields for custom fields to save
+            'taxonomies' => ['category', 'post_tag']
+        );
 
 // Post type, $args - the Post Type string can be MAX 20 characters
         register_post_type('aw-calendar-events', $args);
@@ -135,6 +151,26 @@ class Alphynweb_Events_Calendar_Admin {
 
     public function register_and_build_settings_fields() {
         
+    }
+
+    public function register_post_type_custom_meta_fields() {
+        register_post_meta('aw-calendar-events', '_event_start_date', [
+            'show_in_rest' => true,
+            'single' => true,
+            'type' => 'string',
+            'auth_callback' => function () {
+                return current_user_can('edit_posts');
+            }
+        ]);
+        
+        register_post_meta('aw-calendar-events', '_event_end_date', [
+            'show_in_rest' => true,
+            'single' => true,
+            'type' => 'string',
+            'auth_callback' => function () {
+                return current_user_can('edit_posts');
+            }
+        ]);
     }
 
     /**
