@@ -79,67 +79,11 @@ class Alphynweb_Events_Calendar_Admin {
     }
 
     public function register_custom_post_types() {
-        // Register alphynweb-calendar-event post type
-        $args = array(
-            'label' => 'Alphynweb Calendar Events',
-            'labels' =>
-            array(
-                'name' => 'Alphynweb Calendar Events',
-                'singular_name' => 'Alphynweb Calendar Event',
-                'add_new' => 'Add event',
-                'add_new_item' => 'Add new event',
-                'edit_item' => 'Edit event',
-                'new_item' => 'New event',
-                'view_item' => 'View event',
-                'search_items' => 'Search events',
-                'not_found' => 'No events found',
-                'not_found_in_trash' => 'No events found in trash',
-                'menu_name' => 'Alphynweb Calendar Events',
-                'name_admin_bar' => 'Alphynweb Calendar Events',
-            ),
-            'public' => true,
-            'description' => 'Alphynweb Calendar Events',
-            'exclude_from_search' => false,
-            'show_ui' => true,
-//            'show_in_menu' => $this->plugin_name, // Use if it's to be a sub menu item below settings in the main one
-            'menu_position' => 26, // Use if it's to be a seperate menu item from the main one
-            'menu_icon' => 'dashicons-calendar-alt',
-//            'supports' => array('title', 'thumbnail', 'custom_fields'),
-            'show_in_rest' => true, // enable Gutenberg editor
-            'supports' => ['editor', 'title', 'custom-fields'], // Need custom-fields for custom fields to save
-            'taxonomies' => ['category', 'post_tag']
-        );
-
-// Post type, $args - the Post Type string can be MAX 20 characters
-        register_post_type('aw-calendar-events', $args);
+        require_once 'partials/custom-post-types/aw-calendar-events.php';
     }
     
     public function register_custom_taxonomies() {
-        register_taxonomy('aw-calendar-events-venues', array('aw-calendar-events'), array(
-            'hierarchical' => true,
-            'labels' => array(
-                'name' => _x('Venues', 'taxonomy general name'),
-                'singular_name' => _x('Vanue', 'taxonomy singular name'),
-                'search_items' => __('Search venues'),
-                'all_items' => __('All venues'),
-                'parent_item' => __('Parent Venue'),
-                'parent_item_colon' => __('Parent Venue:'),
-                'edit_item' => __('Edit Venue'),
-                'update_item' => __('Update Venue'),
-                'add_new_item' => __('Add New Venue'),
-                'new_item_name' => __('New Venue'),
-                'menu_name' => __('Venues'),
-            ),
-            'show_ui' => true,
-            'show_admin_column' => true,
-            'show_in_rest' => true, // Needed for it to appear in Block Editor
-            'query_var' => true,
-            'rewrite' => array(
-                'slug' => 'venues',
-                'with_front' => true
-            ),
-            'has_archive' => true
-        ));
+        require_once 'partials/custom-taxonomies/venues.php';
     }
 
     public function add_alphynweb_events_calendar_admin_menu() {
