@@ -54,9 +54,15 @@ class Alphynweb_Events_Calendar_Admin {
 
         // Register custom post types
         add_action('init', array($this, 'register_custom_post_types'));
-        
+
         // Register custom taxonomies
         add_action('init', array($this, 'register_custom_taxonomies'));
+
+        // Add form fields for venues taxonomy
+        add_action('aw-calendar-events-venues_edit_form_fields', array($this, 'taxonomy_venues_edit_custom_fields'), 10, 2);
+        
+        // Save form fields for venues taxonomy
+        add_action('edited_aw-calendar-events-venues', array($this, 'taxonomy_venues_save_custom_fields'), 10, 2);
 
         // Add admin menu
         add_action('admin_menu', array($this, 'add_alphynweb_events_calendar_admin_menu'), 9);
@@ -66,6 +72,9 @@ class Alphynweb_Events_Calendar_Admin {
             wp_enqueue_script('alphynweb-gutenberg-editor-panels', plugin_dir_url(__FILE__), 'js/alphynweb-gutenberg-editor-panels.js',
                     array('wp-blocks', 'wp-edit-post'), false, false);
         });
+
+        // Register media uploader script
+        add_action('admin_enqueue_scripts', array($this, 'register_media_upload_script'));
 
         // Fields for settings page
 //        add_action('admin_init', array($this, 'register_and_build_settings_fields'));
@@ -78,12 +87,32 @@ class Alphynweb_Events_Calendar_Admin {
         });
     }
 
+    public function register_media_upload_script() {
+        // Load the js script
+        if (!did_action('wp_enqueue_media')) {
+            wp_enqueue_media();
+        }
+
+        wp_enqueue_script('mediaupload', plugin_dir_url(__FILE__) . 'js/utils/media_uploader.js', array('jquery'), null, false);
+        
+        // Load the php script
+        require_once 'utils/media_upload_field.php';
+    }
+
     public function register_custom_post_types() {
         require_once 'partials/custom-post-types/aw-calendar-events.php';
     }
-    
+
     public function register_custom_taxonomies() {
         require_once 'partials/custom-taxonomies/venues.php';
+    }
+
+    public function taxonomy_venues_edit_custom_fields($term) {
+        require_once 'partials/custom-taxonomies/venues-edit-form-fields.php';
+    }
+    
+    public function taxonomy_venues_save_custom_fields($term_id) {
+        require_once 'partials/custom-taxonomies/venues-save-form-fields.php';
     }
 
     public function add_alphynweb_events_calendar_admin_menu() {
@@ -137,7 +166,7 @@ class Alphynweb_Events_Calendar_Admin {
                 return current_user_can('edit_posts');
             }
         ]);
-        
+
         register_post_meta('aw-calendar-events', '_event_end_date', [
             'show_in_rest' => true,
             'single' => true,
