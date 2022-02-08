@@ -54,6 +54,9 @@ class Alphynweb_Events_Calendar_Admin {
 
         // Register custom post types
         add_action('init', array($this, 'register_custom_post_types'));
+        
+        // Register custom taxonomies
+        add_action('init', array($this, 'register_custom_taxonomies'));
 
         // Add admin menu
         add_action('admin_menu', array($this, 'add_alphynweb_events_calendar_admin_menu'), 9);
@@ -109,6 +112,34 @@ class Alphynweb_Events_Calendar_Admin {
 
 // Post type, $args - the Post Type string can be MAX 20 characters
         register_post_type('aw-calendar-events', $args);
+    }
+    
+    public function register_custom_taxonomies() {
+        register_taxonomy('aw-calendar-events-venues', array('aw-calendar-events'), array(
+            'hierarchical' => true,
+            'labels' => array(
+                'name' => _x('Venues', 'taxonomy general name'),
+                'singular_name' => _x('Vanue', 'taxonomy singular name'),
+                'search_items' => __('Search venues'),
+                'all_items' => __('All venues'),
+                'parent_item' => __('Parent Venue'),
+                'parent_item_colon' => __('Parent Venue:'),
+                'edit_item' => __('Edit Venue'),
+                'update_item' => __('Update Venue'),
+                'add_new_item' => __('Add New Venue'),
+                'new_item_name' => __('New Venue'),
+                'menu_name' => __('Venues'),
+            ),
+            'show_ui' => true,
+            'show_admin_column' => true,
+            'show_in_rest' => true, // Needed for it to appear in Block Editor
+            'query_var' => true,
+            'rewrite' => array(
+                'slug' => 'venues',
+                'with_front' => true
+            ),
+            'has_archive' => true
+        ));
     }
 
     public function add_alphynweb_events_calendar_admin_menu() {
