@@ -7,7 +7,10 @@ if (!isset($_POST['_venue_custom_fields_nonce']) || !wp_verify_nonce($_POST['_ve
 $venue_meta = [];
 
 // Check for meta data values
+// Venue image
 $venue_meta['_venue_image'] = isset($_POST['_venue_image']) ? $_POST['_venue_image'] : null;
+// Venue url
+$venue_meta['_venue_url'] = isset($_POST['_venue_url']) ? sanitize_url($_POST['_venue_url']) : null;
 
 // Loop through the meta keys and save
 $meta_keys = array_keys($venue_meta);

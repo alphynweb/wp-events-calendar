@@ -1,4 +1,5 @@
 module.exports = {
+    devtool: 'source-map',
     entry: './admin/js/alphynweb-gutenberg.js',
     output: {
         path: __dirname,

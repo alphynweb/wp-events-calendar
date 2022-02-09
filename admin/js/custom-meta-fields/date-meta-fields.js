@@ -3,7 +3,7 @@ const {Fragment} = wp.element;
 const {compose} = wp.compose;
 const {withSelect, withDispatch} = wp.data;
 const {PluginDocumentSettingPanel} = wp.editPost;
-const {Button, DateTimePicker, Popover, PanelRow} = wp.components;
+const {Button, DateTimePicker, Popover, PanelRow, TextControl} = wp.components;
 const {useState} = wp.element;
 
 // js date manipulation library
@@ -55,7 +55,7 @@ const Alphynweb_Event_Date_Meta_Fields = ({ postType, postMeta, setPostMeta }) =
                     initialOpen="true">
             
                     <PanelRow>
-                        <Button variant="secondary" onClick={toggleIsPopoverVisible('start')}>
+                        <Button variant="secondary" onClick={() => toggleIsPopoverVisible('start')}>
                             {startButtonText}
                         </Button>
             
@@ -94,7 +94,7 @@ const Alphynweb_Event_Date_Meta_Fields = ({ postType, postMeta, setPostMeta }) =
                     initialOpen="true">
             
                     <PanelRow>
-                        <Button variant="secondary" onClick={toggleIsPopoverVisible('end')}>
+                        <Button variant="secondary" onClick={() => toggleIsPopoverVisible('end')}>
                             {endButtonText}
                         </Button>
             

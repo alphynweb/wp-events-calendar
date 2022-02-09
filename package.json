@@ -31,6 +31,7 @@
     "dependencies": {
         "@wordpress/components": "^19.3.0",
         "@wordpress/plugins": "^4.1.0",
-        "dayjs": "^1.10.7"
+        "dayjs": "^1.10.7",
+        "jquery-deparam": "^0.5.3"
     }
 }

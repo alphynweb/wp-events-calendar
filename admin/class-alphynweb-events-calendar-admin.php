@@ -59,9 +59,13 @@ class Alphynweb_Events_Calendar_Admin {
         add_action('init', array($this, 'register_custom_taxonomies'));
 
         // Add form fields for venues taxonomy
+        add_action('aw-calendar-events-venues_add_form_fields', array($this, 'taxonomy_venues_add_custom_fields'), 10, 2);
+
+        // Edit form fields for venues taxonomy
         add_action('aw-calendar-events-venues_edit_form_fields', array($this, 'taxonomy_venues_edit_custom_fields'), 10, 2);
-        
+
         // Save form fields for venues taxonomy
+        add_action('created_aw-calendar-events-venues', array($this, 'taxonomy_venues_save_custom_fields'), 10, 2);
         add_action('edited_aw-calendar-events-venues', array($this, 'taxonomy_venues_save_custom_fields'), 10, 2);
 
         // Add admin menu
@@ -75,6 +79,11 @@ class Alphynweb_Events_Calendar_Admin {
 
         // Register media uploader script
         add_action('admin_enqueue_scripts', array($this, 'register_media_upload_script'));
+        
+        // Register custom taxonomy term clearing script
+        add_action('admin_enqueue_scripts', function() {
+         wp_enqueue_script('test-script', plugin_dir_url(__FILE__) . 'js/utils/test-script.js', array('jquery'), null, false);   
+        });
 
         // Fields for settings page
 //        add_action('admin_init', array($this, 'register_and_build_settings_fields'));
@@ -94,7 +103,7 @@ class Alphynweb_Events_Calendar_Admin {
         }
 
         wp_enqueue_script('mediaupload', plugin_dir_url(__FILE__) . 'js/utils/media_uploader.js', array('jquery'), null, false);
-        
+
         // Load the php script
         require_once 'utils/media_upload_field.php';
     }
@@ -107,10 +116,14 @@ class Alphynweb_Events_Calendar_Admin {
         require_once 'partials/custom-taxonomies/venues.php';
     }
 
+    public function taxonomy_venues_add_custom_fields($term) {
+        require_once 'partials/custom-taxonomies/venues-add-form-fields.php';
+    }
+
     public function taxonomy_venues_edit_custom_fields($term) {
         require_once 'partials/custom-taxonomies/venues-edit-form-fields.php';
     }
-    
+
     public function taxonomy_venues_save_custom_fields($term_id) {
         require_once 'partials/custom-taxonomies/venues-save-form-fields.php';
     }
