@@ -82,7 +82,7 @@ class Alphynweb_Events_Calendar_Admin {
         
         // Register custom taxonomy term clearing script
         add_action('admin_enqueue_scripts', function() {
-         wp_enqueue_script('test-script', plugin_dir_url(__FILE__) . 'js/utils/test-script.js', array('jquery'), null, false);   
+         wp_enqueue_script('reset-taxonomy-fields', plugin_dir_url(__FILE__) . 'js/taxonomies/reset-taxonomy-fields.js', array('jquery'), null, false);   
         });
 
         // Fields for settings page
@@ -91,7 +91,7 @@ class Alphynweb_Events_Calendar_Admin {
         add_action('init', array($this, 'register_post_type_custom_meta_fields'));
 
         add_action('enqueue_block_editor_assets', function () {
-            wp_enqueue_script('alphynweb-gutenberg', plugin_dir_url(__FILE__) . 'js/alphynweb-gutenberg.build.js', array('wp-edit-post', 'wp-element', 'wp-components', 'wp-plugins', 'wp-data'), false, false);
+            wp_enqueue_script('alphynweb-gutenberg', plugin_dir_url(__FILE__) . 'js/block-editor/block-editor.js', array('wp-edit-post', 'wp-element', 'wp-components', 'wp-plugins', 'wp-data'), false, false);
 //            wp_enqueue_script($handle, $src, $deps, $ver, $in_footer)
         });
     }
