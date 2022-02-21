@@ -3,7 +3,6 @@ import deparam from 'jquery-deparam';
 (function ($) {
     $(document).ajaxSuccess(function (e, request, settings) {
         const object = deparam(settings.data);
-        console.log(object);
         if (object.action === 'add-tag' && object.screen === 'edit-aw-calendar-events-venues' && object.taxonomy === 'aw-calendar-events-venues') {
             // Reset form
             const venueForm = document.getElementById('addtag');
@@ -13,8 +12,13 @@ import deparam from 'jquery-deparam';
             const venueImage = document.querySelector('.true_pre_image');
             const venueImageInput = document.getElementById('_venue_image');
 
-            venueImage.remove();
-            venueImageInput.remove();
+            if (venueImage) {
+                venueImage.remove();
+            }
+
+            if (venueImageInput) {
+                venueImageInput.remove();
+            }
         }
     });
 })(jQuery);

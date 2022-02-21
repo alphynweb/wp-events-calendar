@@ -20,7 +20,8 @@
  * @subpackage Alphynweb_Events_Calendar/admin
  * @author     Alphynweb <tom.m@alphynweb.co.uk>
  */
-class Alphynweb_Events_Calendar_Admin {
+class Alphynweb_Events_Calendar_Admin
+{
 
     /**
      * The ID of this plugin.
@@ -47,7 +48,8 @@ class Alphynweb_Events_Calendar_Admin {
      * @param      string    $plugin_name       The name of this plugin.
      * @param      string    $version    The version of this plugin.
      */
-    public function __construct($plugin_name, $version) {
+    public function __construct($plugin_name, $version)
+    {
 
         $this->plugin_name = $plugin_name;
         $this->version = $version;
@@ -72,77 +74,86 @@ class Alphynweb_Events_Calendar_Admin {
         add_action('admin_menu', array($this, 'add_alphynweb_events_calendar_admin_menu'), 9);
 
         // Remove editor panels from sidebar
-        add_action('init', function () {
-            wp_enqueue_script('alphynweb-gutenberg-editor-panels', plugin_dir_url(__FILE__), 'js/alphynweb-gutenberg-editor-panels.js',
-                    array('wp-blocks', 'wp-edit-post'), false, false);
-        });
+        // add_action('init', function () {
+        //     wp_enqueue_script('alphynweb-gutenberg-editor-panels', plugin_dir_url(__FILE__), 'js/alphynweb-gutenberg-editor-panels.js',
+        //             array('wp-blocks', 'wp-edit-post'), false, false);
+        // });
 
         // Register media uploader script
         add_action('admin_enqueue_scripts', array($this, 'register_media_upload_script'));
-        
+
         // Register custom taxonomy term clearing script
-        add_action('admin_enqueue_scripts', function() {
-         wp_enqueue_script('reset-taxonomy-fields', plugin_dir_url(__FILE__) . 'js/taxonomies/reset-taxonomy-fields.js', array('jquery'), null, false);   
+        add_action('admin_enqueue_scripts', function () {
+            wp_enqueue_script('reset-taxonomy-fields', plugin_dir_url(__FILE__) . '../build/admin/js/taxonomies/reset-taxonomy-fields.js', array('jquery'), null, false);
         });
 
         // Fields for settings page
-//        add_action('admin_init', array($this, 'register_and_build_settings_fields'));
+        //        add_action('admin_init', array($this, 'register_and_build_settings_fields'));
         // Regiter post type custom meta fields
         add_action('init', array($this, 'register_post_type_custom_meta_fields'));
 
         add_action('enqueue_block_editor_assets', function () {
-            wp_enqueue_script('alphynweb-gutenberg', plugin_dir_url(__FILE__) . 'js/block-editor/block-editor.js', array('wp-edit-post', 'wp-element', 'wp-components', 'wp-plugins', 'wp-data'), false, false);
-//            wp_enqueue_script($handle, $src, $deps, $ver, $in_footer)
+            wp_enqueue_script('alphynweb-gutenberg', plugin_dir_url(__FILE__) . '../build/admin/js/block-editor/block-editor.js', array('wp-edit-post', 'wp-element', 'wp-components', 'wp-plugins', 'wp-data'), false, false);
+            //            wp_enqueue_script($handle, $src, $deps, $ver, $in_footer)
         });
     }
 
-    public function register_media_upload_script() {
+    public function register_media_upload_script()
+    {
         // Load the js script
         if (!did_action('wp_enqueue_media')) {
             wp_enqueue_media();
         }
 
-        wp_enqueue_script('mediaupload', plugin_dir_url(__FILE__) . 'js/utils/media_uploader.js', array('jquery'), null, false);
+        wp_enqueue_script('mediaupload', plugin_dir_url(__FILE__) . '../build/admin/js/utils/media_uploader.js', array('jquery'), null, false);
 
         // Load the php script
         require_once 'utils/media_upload_field.php';
     }
 
-    public function register_custom_post_types() {
+    public function register_custom_post_types()
+    {
         require_once 'partials/custom-post-types/aw-calendar-events.php';
     }
 
-    public function register_custom_taxonomies() {
+    public function register_custom_taxonomies()
+    {
         require_once 'partials/custom-taxonomies/venues.php';
     }
 
-    public function taxonomy_venues_add_custom_fields($term) {
+    public function taxonomy_venues_add_custom_fields($term)
+    {
         require_once 'partials/custom-taxonomies/venues-add-form-fields.php';
     }
 
-    public function taxonomy_venues_edit_custom_fields($term) {
+    public function taxonomy_venues_edit_custom_fields($term)
+    {
         require_once 'partials/custom-taxonomies/venues-edit-form-fields.php';
     }
 
-    public function taxonomy_venues_save_custom_fields($term_id) {
+    public function taxonomy_venues_save_custom_fields($term_id)
+    {
         require_once 'partials/custom-taxonomies/venues-save-form-fields.php';
     }
 
-    public function add_alphynweb_events_calendar_admin_menu() {
+    public function add_alphynweb_events_calendar_admin_menu()
+    {
         // Main menu page
-//            add_menu_page($page_title, $menu_title, $capability, $menu_slug, $function, $icon_url, $position);
+        //            add_menu_page($page_title, $menu_title, $capability, $menu_slug, $function, $icon_url, $position);
         add_menu_page($this->plugin_name, 'Alphynweb Events Calendar', 'administrator', $this->plugin_name, array($this, 'display_alphynweb_events_calendar_admin_dashboard'), 'dashicons-calendar-alt', 80);
 
         // Settings page
-//        add_submenu_page($parent_slug, $page_title, $menu_title, $capability, $menu_slug, $function, $position);
+        //        add_submenu_page($parent_slug, $page_title, $menu_title, $capability, $menu_slug, $function, $position);
         add_submenu_page($this->plugin_name, 'Alphynweb Events Calendar Settings', 'Settings', 'administrator', $this->plugin_name . '-settings', array($this, 'display_alphynweb_events_calendar_admin_settings'));
     }
 
-    public function display_alphynweb_events_calendar_admin_dashboard() {
+    public function display_alphynweb_events_calendar_admin_dashboard()
+    {
         require_once 'partials/' . $this->plugin_name . '-admin-display.php';
     }
 
-    public function display_alphynweb_events_calendar_admin_settings() {
+    public function display_alphynweb_events_calendar_admin_settings()
+    {
         // Set $active_tab var to be used in settings-display view file
         $active_tab = isset($_GET['tab']) ? $_GET['tab'] : 'general';
 
@@ -153,7 +164,8 @@ class Alphynweb_Events_Calendar_Admin {
         require_once 'partials/' . $this->plugin_name . '-admin-settings-display.php';
     }
 
-    public function alphynweb_events_calendar_settings_messages($error_message) {
+    public function alphynweb_events_calendar_settings_messages($error_message)
+    {
         switch ($error_message) {
             case '1':
                 $message = _('There was an error adding this setting. Please try again. If the problem persists, please email the plugin author.', 'alphynweb-events-calendar');
@@ -162,15 +174,16 @@ class Alphynweb_Events_Calendar_Admin {
                 break;
         }
         $type = 'error';
-//        add_settings_error($type, $setting_field, $message, $type);
+        //        add_settings_error($type, $setting_field, $message, $type);
         add_settings_error($setting_field, $err_code, $message, $type);
     }
 
-    public function register_and_build_settings_fields() {
-        
+    public function register_and_build_settings_fields()
+    {
     }
 
-    public function register_post_type_custom_meta_fields() {
+    public function register_post_type_custom_meta_fields()
+    {
         register_post_meta('aw-calendar-events', '_event_start_date', [
             'show_in_rest' => true,
             'single' => true,
@@ -195,7 +208,8 @@ class Alphynweb_Events_Calendar_Admin {
      *
      * @since    1.0.0
      */
-    public function enqueue_styles() {
+    public function enqueue_styles()
+    {
 
         /**
          * This function is provided for demonstration purposes only.
@@ -216,7 +230,8 @@ class Alphynweb_Events_Calendar_Admin {
      *
      * @since    1.0.0
      */
-    public function enqueue_scripts() {
+    public function enqueue_scripts()
+    {
 
         /**
          * This function is provided for demonstration purposes only.
@@ -229,7 +244,6 @@ class Alphynweb_Events_Calendar_Admin {
          * between the defined hooks and the functions defined in this
          * class.
          */
-        wp_enqueue_script($this->plugin_name, plugin_dir_url(__FILE__) . 'js/alphynweb-events-calendar-admin.js', array('jquery'), $this->version, false);
+        wp_enqueue_script($this->plugin_name, plugin_dir_url(__FILE__) . '../build/admin/js/index.js', array('jquery'), $this->version, false);
     }
-
 }
