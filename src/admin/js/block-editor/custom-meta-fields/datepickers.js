@@ -1,10 +1,9 @@
-const {__} = wp.i18n;
-const {Fragment} = wp.element;
-const {compose} = wp.compose;
-const {withSelect, withDispatch} = wp.data;
-const {PluginDocumentSettingPanel} = wp.editPost;
-const {Button, DateTimePicker, Popover, PanelRow, TextControl} = wp.components;
-const {useState} = wp.element;
+import { __ } from '@wordpress/i18n';
+import { Fragment, useState } from '@wordpress/element';
+import { compose } from '@wordpress/compose';
+import { withSelect, withDispatch } from '@wordpress/data';
+import { PluginDocumentSettingPanel } from '@wordpress/edit-post';
+import { Button, DateTimePicker, Popover, PanelRow, TextControl } from '@wordpress/components';
 
 // js date manipulation library
 import * as dayjs from 'dayjs';
@@ -44,90 +43,92 @@ const Alphynweb_Event_Date_Meta_Fields = ({ postType, postMeta, setPostMeta }) =
     // Update date in meta data (metaField to update, value to update to)
     const onUpdateDateTime = (metaField, newDateTime) => {
         setEventDateTime(newDateTime);
-        setPostMeta({[metaField]: newDateTime});
+        setPostMeta({ [metaField]: newDateTime });
     };
 
-    return(
-            <Fragment>
-                <PluginDocumentSettingPanel 
-                    title={__('Event start date and time', 'alphynweb-calendar-events')} 
-                    icon="edit" 
-                    initialOpen="true">
-            
-                    <PanelRow>
-                        <Button variant="secondary" onClick={() => toggleIsPopoverVisible('start')}>
-                            {startButtonText}
-                        </Button>
-            
-                    </PanelRow>
-            
-                    <PanelRow>
-                        <TextControl 
-                            label="Date"
-                            value={dayjs(storedStartDate).format('DD/MM/YYYY')}
-                            />
-                    </PanelRow>
-            
-                    <PanelRow>
-                        <TextControl
-                            label="Time"
-                            value={dayjs(storedStartDate).format('h:mm a')}
-                            />
-                    </PanelRow>
-            
-                    { isStartPopoverVisible &&
-                            <Popover>
-                                <DateTimePicker
-                                    currentDate={storedStartDate}
-                                    label="Date of event"
-                                    is12Hour = {true}
-                                    onChange ={newDateTime => onUpdateDateTime('_event_start_date', newDateTime)}
-                                    />
-                            </Popover>
-                    }      
-            
-                </PluginDocumentSettingPanel>      
-            
-                <PluginDocumentSettingPanel 
-                    title={__('Event end date and time', 'alphynweb-calendar-events')} 
-                    icon="edit" 
-                    initialOpen="true">
-            
-                    <PanelRow>
-                        <Button variant="secondary" onClick={() => toggleIsPopoverVisible('end')}>
-                            {endButtonText}
-                        </Button>
-            
-                    </PanelRow>
-            
-                    <PanelRow>
-                        <TextControl 
-                            label="Date"
-                            value={dayjs(storedEndDate).format('DD/MM/YYYY')}
-                            />
-                    </PanelRow>
-            
-                    <PanelRow>
-                        <TextControl
-                            label="Time"
-                            value={dayjs(storedEndDate).format('h:mm a')}
-                            />
-                    </PanelRow>
-            
-                    { isEndPopoverVisible &&
-                            <Popover>
-                                <DateTimePicker
-                                    currentDate={storedEndDate}
-                                    label="Date of event"
-                                    is12Hour = {true}
-                                    onChange ={newDateTime => onUpdateDateTime('_event_end_date', newDateTime)}
-                                    />
-                            </Popover>
-                    }      
-            
-                </PluginDocumentSettingPanel>   
-            </Fragment>
-            );
+    return (
+        <Fragment>
+            <PluginDocumentSettingPanel
+                name="eventStartDate"
+                title={__('Event start date and time', 'alphynweb-calendar-events')}
+                icon="calendar"
+                initialOpen="true">
+
+                <PanelRow>
+                    <Button variant="secondary" onClick={() => toggleIsPopoverVisible('start')}>
+                        {startButtonText}
+                    </Button>
+
+                </PanelRow>
+
+                <PanelRow>
+                    <TextControl
+                        label="Date"
+                        value={dayjs(storedStartDate).format('DD/MM/YYYY')}
+                    />
+                </PanelRow>
+
+                <PanelRow>
+                    <TextControl
+                        label="Time"
+                        value={dayjs(storedStartDate).format('h:mm a')}
+                    />
+                </PanelRow>
+
+                {isStartPopoverVisible &&
+                    <Popover>
+                        <DateTimePicker
+                            currentDate={storedStartDate}
+                            label="Date of event"
+                            is12Hour={true}
+                            onChange={newDateTime => onUpdateDateTime('_event_start_date', newDateTime)}
+                        />
+                    </Popover>
+                }
+
+            </PluginDocumentSettingPanel>
+
+            <PluginDocumentSettingPanel
+                name="eventEndDate"
+                title={__('Event end date and time', 'alphynweb-calendar-events')}
+                icon="calendar"
+                initialOpen="true">
+
+                <PanelRow>
+                    <Button variant="secondary" onClick={() => toggleIsPopoverVisible('end')}>
+                        {endButtonText}
+                    </Button>
+
+                </PanelRow>
+
+                <PanelRow>
+                    <TextControl
+                        label="Date"
+                        value={dayjs(storedEndDate).format('DD/MM/YYYY')}
+                    />
+                </PanelRow>
+
+                <PanelRow>
+                    <TextControl
+                        label="Time"
+                        value={dayjs(storedEndDate).format('h:mm a')}
+                    />
+                </PanelRow>
+
+                {isEndPopoverVisible &&
+                    <Popover>
+                        <DateTimePicker
+                            currentDate={storedEndDate}
+                            label="Date of event"
+                            is12Hour={true}
+                            onChange={newDateTime => onUpdateDateTime('_event_end_date', newDateTime)}
+                        />
+                    </Popover>
+                }
+
+            </PluginDocumentSettingPanel>
+        </Fragment>
+    );
 }
 
 export default compose([
@@ -141,7 +142,7 @@ export default compose([
         return {
             setPostMeta(newMeta) {
                 console.log("Dispatching: newMeta = ", newMeta);
-                dispatch('core/editor').editPost({meta: newMeta});
+                dispatch('core/editor').editPost({ meta: newMeta });
             }
         };
     })
