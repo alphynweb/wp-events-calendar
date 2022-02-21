@@ -269,6 +269,17 @@ module.exports = window["wp"]["element"];
 "use strict";
 module.exports = window["wp"]["i18n"];
 
+/***/ }),
+
+/***/ "@wordpress/plugins":
+/*!*********************************!*\
+  !*** external ["wp","plugins"] ***!
+  \*********************************/
+/***/ (function(module) {
+
+"use strict";
+module.exports = window["wp"]["plugins"];
+
 /***/ })
 
 /******/ 	});
@@ -347,17 +358,19 @@ var __webpack_exports__ = {};
   !*** ./src/admin/js/block-editor/block-editor.js ***!
   \***************************************************/
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _block_editor_panels_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./block-editor-panels.js */ "./src/admin/js/block-editor/block-editor-panels.js");
-/* harmony import */ var _block_editor_panels_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_block_editor_panels_js__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _custom_meta_fields_datepickers_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./custom-meta-fields/datepickers.js */ "./src/admin/js/block-editor/custom-meta-fields/datepickers.js");
-var registerPlugin = wp.plugins.registerPlugin;
+/* harmony import */ var _wordpress_plugins__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/plugins */ "@wordpress/plugins");
+/* harmony import */ var _wordpress_plugins__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_plugins__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _block_editor_panels_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./block-editor-panels.js */ "./src/admin/js/block-editor/block-editor-panels.js");
+/* harmony import */ var _block_editor_panels_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_block_editor_panels_js__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _custom_meta_fields_datepickers_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./custom-meta-fields/datepickers.js */ "./src/admin/js/block-editor/custom-meta-fields/datepickers.js");
+
  // Editor sidebar panels
 
  // Event date meta fields
 
-registerPlugin('alphynweb-custom-post-meta-fields-plugin', {
+(0,_wordpress_plugins__WEBPACK_IMPORTED_MODULE_0__.registerPlugin)('alphynweb-custom-post-meta-fields-plugin', {
   render: function render() {
-    return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement(_custom_meta_fields_datepickers_js__WEBPACK_IMPORTED_MODULE_1__["default"], null));
+    return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement(_custom_meta_fields_datepickers_js__WEBPACK_IMPORTED_MODULE_2__["default"], null));
   }
 });
 }();
