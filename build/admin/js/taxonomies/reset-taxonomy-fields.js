@@ -221,16 +221,16 @@ __webpack_require__.r(__webpack_exports__);
       var venueForm = document.getElementById('addtag');
       venueForm.reset(); // Reset venue image and hidden input - remove nodes from DOM
 
-      var venueImage = document.querySelector('.true_pre_image');
-      var venueImageInput = document.getElementById('_venue_image');
+      var venueImage = document.querySelector('.true_pre_image'); // Remove the image from DOM if exists
 
       if (venueImage) {
         venueImage.remove();
-      }
+      } // Reset button
 
-      if (venueImageInput) {
-        venueImageInput.remove();
-      }
+
+      var venueImageInput = document.querySelector('.misha_remove_image_button');
+      var buttonText = $(venueImageInput).data('add-text');
+      $(venueImageInput).hide().prev().val('').prev().addClass('button').html(buttonText);
     }
   });
 })(jQuery);

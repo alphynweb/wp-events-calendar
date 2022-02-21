@@ -10,15 +10,16 @@ import deparam from 'jquery-deparam';
 
             // Reset venue image and hidden input - remove nodes from DOM
             const venueImage = document.querySelector('.true_pre_image');
-            const venueImageInput = document.getElementById('_venue_image');
 
+            // Remove the image from DOM if exists
             if (venueImage) {
                 venueImage.remove();
             }
 
-            if (venueImageInput) {
-                venueImageInput.remove();
-            }
+            // Reset button
+            const venueImageInput = document.querySelector('.misha_remove_image_button');
+            var buttonText = $(venueImageInput).data('add-text');
+            $(venueImageInput).hide().prev().val('').prev().addClass('button').html(buttonText);
         }
     });
 })(jQuery);
