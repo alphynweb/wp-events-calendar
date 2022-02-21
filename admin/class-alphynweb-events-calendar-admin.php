@@ -73,42 +73,55 @@ class Alphynweb_Events_Calendar_Admin
         // Add admin menu
         add_action('admin_menu', array($this, 'add_alphynweb_events_calendar_admin_menu'), 9);
 
-        // Remove editor panels from sidebar
-        // add_action('init', function () {
-        //     wp_enqueue_script('alphynweb-gutenberg-editor-panels', plugin_dir_url(__FILE__), 'js/alphynweb-gutenberg-editor-panels.js',
-        //             array('wp-blocks', 'wp-edit-post'), false, false);
-        // });
-
-        // Register media uploader script
-        add_action('admin_enqueue_scripts', array($this, 'register_media_upload_script'));
-
-        // Register custom taxonomy term clearing script
-        add_action('admin_enqueue_scripts', function () {
-            wp_enqueue_script('reset-taxonomy-fields', plugin_dir_url(__FILE__) . '../build/admin/js/taxonomies/reset-taxonomy-fields.js', array('jquery'), null, false);
-        });
-
         // Fields for settings page
-        //        add_action('admin_init', array($this, 'register_and_build_settings_fields'));
-        // Regiter post type custom meta fields
-        add_action('init', array($this, 'register_post_type_custom_meta_fields'));
+        add_action('admin_init', array($this, 'register_and_build_settings_fields'));
 
-        add_action('enqueue_block_editor_assets', function () {
-            wp_enqueue_script('alphynweb-gutenberg', plugin_dir_url(__FILE__) . '../build/admin/js/block-editor/block-editor.js', array('wp-edit-post', 'wp-element', 'wp-components', 'wp-plugins', 'wp-data'), false, false);
-            //            wp_enqueue_script($handle, $src, $deps, $ver, $in_footer)
+
+        // Register post type custom meta fields
+        add_action('init', array(
+            $this,
+            'register_post_type_custom_meta_fields'
+        ));
+
+        // *** JS *** //
+        // admin_enqueue_scripts hook
+        add_action('admin_enqueue_scripts', function () {
+            // Register media uploader script
+            if (!did_action('wp_enqueue_media')) {
+                wp_enqueue_media();
+            }
+
+            wp_enqueue_script(
+                'mediaupload',
+                plugin_dir_url(__FILE__) . '../build/admin/js/utils/media_uploader.js',
+                array('jquery'),
+                null,
+                false
+            );
+
+            // Load the php script
+            require_once 'utils/media_upload_field.php';
+
+            // Register custom taxonomy term clearing script
+            wp_enqueue_script(
+                'reset-taxonomy-fields',
+                plugin_dir_url(__FILE__) . '../build/admin/js/taxonomies/reset-taxonomy-fields.js',
+                array('jquery'),
+                null,
+                false
+            );
         });
-    }
 
-    public function register_media_upload_script()
-    {
-        // Load the js script
-        if (!did_action('wp_enqueue_media')) {
-            wp_enqueue_media();
-        }
-
-        wp_enqueue_script('mediaupload', plugin_dir_url(__FILE__) . '../build/admin/js/utils/media_uploader.js', array('jquery'), null, false);
-
-        // Load the php script
-        require_once 'utils/media_upload_field.php';
+        // enqueue_block_editor_assets_hook
+        add_action('enqueue_block_editor_assets', function () {
+            wp_enqueue_script(
+                'alphynweb-gutenberg',
+                plugin_dir_url(__FILE__) . '../build/admin/js/block-editor/block-editor.js',
+                array('wp-edit-post', 'wp-element', 'wp-components', 'wp-plugins', 'wp-data'),
+                false,
+                false
+            );
+        });
     }
 
     public function register_custom_post_types()
