@@ -20,7 +20,8 @@
  * @subpackage Alphynweb_Events_Calendar/public
  * @author     Alphynweb <tom.m@alphynweb.co.uk>
  */
-class Alphynweb_Events_Calendar_Public {
+class Alphynweb_Events_Calendar_Public
+{
 
 	/**
 	 * The ID of this plugin.
@@ -47,11 +48,20 @@ class Alphynweb_Events_Calendar_Public {
 	 * @param      string    $plugin_name       The name of the plugin.
 	 * @param      string    $version    The version of this plugin.
 	 */
-	public function __construct( $plugin_name, $version ) {
+	public function __construct($plugin_name, $version)
+	{
 
 		$this->plugin_name = $plugin_name;
 		$this->version = $version;
+	}
 
+	public function add_shortcodes($atts = [], $content = null)
+	{
+		// Alphynweb Events Calendar shortcode
+		remove_shortcode('alphynweb-events-calendar');
+
+		add_shortcode('alphynweb-events-calendar', function ($atts = [], $content = null) {
+		});
 	}
 
 	/**
@@ -59,7 +69,8 @@ class Alphynweb_Events_Calendar_Public {
 	 *
 	 * @since    1.0.0
 	 */
-	public function enqueue_styles() {
+	public function enqueue_styles()
+	{
 
 		/**
 		 * This function is provided for demonstration purposes only.
@@ -73,8 +84,7 @@ class Alphynweb_Events_Calendar_Public {
 		 * class.
 		 */
 
-		wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/alphynweb-events-calendar-public.css', array(), $this->version, 'all' );
-
+		wp_enqueue_style($this->plugin_name, plugin_dir_url(__FILE__) . 'css/alphynweb-events-calendar-public.css', array(), $this->version, 'all');
 	}
 
 	/**
@@ -82,7 +92,8 @@ class Alphynweb_Events_Calendar_Public {
 	 *
 	 * @since    1.0.0
 	 */
-	public function enqueue_scripts() {
+	public function enqueue_scripts()
+	{
 
 		/**
 		 * This function is provided for demonstration purposes only.
@@ -96,8 +107,6 @@ class Alphynweb_Events_Calendar_Public {
 		 * class.
 		 */
 
-		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/alphynweb-events-calendar-public.js', array( 'jquery' ), $this->version, false );
-
+		wp_enqueue_script($this->plugin_name, plugin_dir_url(__FILE__) . 'js/alphynweb-events-calendar-public.js', array('jquery'), $this->version, false);
 	}
-
 }

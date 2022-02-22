@@ -122,6 +122,10 @@ class Alphynweb_Events_Calendar_Admin
                 false
             );
         });
+
+        // Custom templates
+        require_once 'classes/class-events-page-template.php';
+        add_action('plugins_loaded', array('EventsPageTemplate', 'get_instance'));
     }
 
     public function register_custom_post_types()
