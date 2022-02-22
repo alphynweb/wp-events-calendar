@@ -57,7 +57,7 @@
 
         // add the templates to this array
         $this->templates = array(
-            '../templates/alphynweb-events-calendar-template.php' => 'Alphynweb events calendar template'
+            '../../public/templates/alphynweb-events-calendar-template.php' => 'Alphynweb events calendar template'
         );
     }
 
