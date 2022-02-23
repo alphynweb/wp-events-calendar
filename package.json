@@ -7,7 +7,10 @@
         "build": "wp-scripts build",
         "start": "wp-scripts start",
         "dev": "cross-env BABEL_ENV=default webpack --watch",
-        "test": "echo \"Error: no test specified\" && exit 1"
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "admin-css": "node-sass --watch src/admin/scss -o build/admin/css",
+        "public-css": "node-sass --watch src/public/scss -o build/public/css",
+        "scss": "npm-run-all -p -r admin-css public-css"
     },
     "repository": {
         "type": "git",
@@ -20,7 +23,13 @@
     },
     "homepage": "https://github.com/alphynweb/wp-events-calendar#readme",
     "devDependencies": {
-        "@wordpress/scripts": "^21.0.2"
+        "@wordpress/scripts": "^21.0.2",
+        "css-loader": "^6.6.0",
+        "mini-css-extract-plugin": "^2.5.3",
+        "node-sass": "^7.0.1",
+        "npm-run-all": "^4.1.5",
+        "sass-loader": "^12.6.0",
+        "style-loader": "^3.3.1"
     },
     "dependencies": {
         "dayjs": "^1.10.7",

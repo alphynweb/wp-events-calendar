@@ -1,0 +1,14 @@
+ul.alphynweb-events-calendar {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    li.calendar-day {
+        border: 1px solid;
+        padding: 3rem;
+
+        h2 {
+            color: red;
+            font-size: 1.5rem;
+        }
+    }  
+}
