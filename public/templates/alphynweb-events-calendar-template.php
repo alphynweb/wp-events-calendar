@@ -29,9 +29,6 @@ if ($query->have_posts()) { ?>
         // End date and time
         $event_end_date = get_post_meta(get_the_ID(), '_event_end_date', true);
 
-        // Venues
-        $venues = get_the_terms(get_the_ID(), 'aw-calendar-events-venues');
-
         // Add event object to $events array
         $event_object = [
             'id' => get_the_id(),
@@ -42,38 +39,14 @@ if ($query->have_posts()) { ?>
         array_push($events, $event_object);
         ?>
 
-        <h1><?php the_title(); ?></h1>
-        <h2>Event start date: <?php echo $event_start_date; ?></h2>
-        <h2>Event start date year: <?php echo date("Y", strtotime($event_start_date)); ?></h2>
-        <h2>Event start date month: <?php echo date("M", strtotime($event_start_date)); ?></h2>
-        <h2>Event start date day: <?php echo date("D", strtotime($event_start_date)); ?></h2>
-        <h2>Event end date: <?php echo $event_end_date; ?></h2>
+        <!-- Todo - delete - just for reference to do with time string displays -->
+        <h1 style="display: none;"><?php the_title(); ?></h1>
+        <h2 style="display: none;">Event start date: <?php echo $event_start_date; ?></h2>
+        <h2 style="display: none;">Event start date year: <?php echo date("Y", strtotime($event_start_date)); ?></h2>
+        <h2 style="display: none;">Event start date month: <?php echo date("M", strtotime($event_start_date)); ?></h2>
+        <h2 style="display: none;">Event start date day: <?php echo date("D", strtotime($event_start_date)); ?></h2>
+        <h2 style="display: none;">Event end date: <?php echo $event_end_date; ?></h2>
 
-        <?php if ($venues) : ?>
-            <h2>Venues:</h2>
-            <?php foreach ($venues as $venue) :
-                var_dump($venue);
-                // GET VENUE INFO //
-                // Id
-                $venue_id = $venue->term_id;
-                // Name
-                $venue_name = $venue->name;
-                // Description
-                $venue_description = $venue->description;
-                // Image id
-                $venue_image_id = get_term_meta($venue_id, '_venue_image', true);
-                // Image file
-                $venue_image_file = wp_get_attachment_image_url($venue_image_id, 'medium_large', false, null);
-            ?>
-                <h3>ID: <?php echo $venue_id; ?></h3>
-                <h3>Name: <?php echo $venue_name; ?></h3>
-                <h3>Description: <?php echo $venue_description; ?></h3>
-                <h3>Image id: <?php echo $venue_image_id; ?></h3>
-                <h3>Image file: <?php echo $venue_image_file; ?></h3>
-                <img src="<?php echo $venue_image_file; ?>" alt="<?php echo $venue_name; ?>" />
-
-            <?php endforeach; ?>
-        <?php endif; ?>
     <?php endwhile; ?>
 <?php } ?>
 
@@ -135,10 +108,12 @@ if ($query->have_posts()) { ?>
             if ($events_on_current_day) {
                 foreach ($events_on_current_day as $post) {
                     setup_postdata($post);
-                    $venues = get_the_terms(get_the_ID(), 'aw-calendar-events-venues');
-                    if ($venues) :
+                    $venues = get_the_terms(get_the_ID(), 'aw-calendar-events-venues'); ?>
+
+                    <h2><?php the_title(); ?></h2>
+
+                    <?php if ($venues) :
                         foreach ($venues as $venue) :
-                            var_dump($venue);
                             // GET VENUE INFO //
                             // Id
                             $venue_id = $venue->term_id;
@@ -150,21 +125,15 @@ if ($query->have_posts()) { ?>
                             $venue_image_id = get_term_meta($venue_id, '_venue_image', true);
                             // Image file
                             $venue_image_file = wp_get_attachment_image_url($venue_image_id, 'medium_large', false, null);
-            ?>
-                            <h3>ID: <?php echo $venue_id; ?></h3>
-                            <h3>Name: <?php echo $venue_name; ?></h3>
-                            <h3>Description: <?php echo $venue_description; ?></h3>
-                            <h3>Image id: <?php echo $venue_image_id; ?></h3>
-                            <h3>Image file: <?php echo $venue_image_file; ?></h3>
-                            <img src="<?php echo $venue_image_file; ?>" alt="<?php echo $venue_name; ?>" />
+                    ?>
+                            <h4>Venue: <?php echo $venue_name; ?></h4>
 
-                    <?php endforeach;
-                    endif; ?>
-                    <h2><?php the_title(); ?></h2>
+                    <?php
+                        endforeach;
+                    endif;
+                    ?>
             <?php }
                 wp_reset_postdata();
-            } else {
-                echo "<h3>NO EVENTS</h3>";
             }
             ?>
 

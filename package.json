@@ -10,7 +10,7 @@
         "test": "echo \"Error: no test specified\" && exit 1",
         "admin-css": "node-sass --watch src/admin/scss -o build/admin/css",
         "public-css": "node-sass --watch src/public/scss -o build/public/css",
-        "scss": "npm-run-all -p -r admin-css public-css"
+        "scss": "npm-run-all -p -r admin-css public-css start"
     },
     "repository": {
         "type": "git",
