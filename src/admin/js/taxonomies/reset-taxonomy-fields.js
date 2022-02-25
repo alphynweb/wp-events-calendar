@@ -3,7 +3,7 @@ import deparam from 'jquery-deparam';
 (function ($) {
     $(document).ajaxSuccess(function (e, request, settings) {
         const object = deparam(settings.data);
-        if (object.action === 'add-tag' && object.screen === 'edit-aw-calendar-events-venues' && object.taxonomy === 'aw-calendar-events-venues') {
+        if (object.action === 'add-tag' && object.screen === 'edit-aw_calendar_events_venues' && object.taxonomy === 'aw_calendar_events_venues') {
             // Reset form
             const venueForm = document.getElementById('addtag');
             venueForm.reset();
@@ -23,5 +23,4 @@ import deparam from 'jquery-deparam';
         }
     });
 })(jQuery);
-
 

@@ -216,7 +216,7 @@ __webpack_require__.r(__webpack_exports__);
   $(document).ajaxSuccess(function (e, request, settings) {
     var object = jquery_deparam__WEBPACK_IMPORTED_MODULE_0___default()(settings.data);
 
-    if (object.action === 'add-tag' && object.screen === 'edit-aw-calendar-events-venues' && object.taxonomy === 'aw-calendar-events-venues') {
+    if (object.action === 'add-tag' && object.screen === 'edit-aw_calendar_events_venues' && object.taxonomy === 'aw_calendar_events_venues') {
       // Reset form
       var venueForm = document.getElementById('addtag');
       venueForm.reset(); // Reset venue image and hidden input - remove nodes from DOM

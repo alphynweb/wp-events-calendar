@@ -61,14 +61,14 @@ class Alphynweb_Events_Calendar_Admin
         add_action('init', array($this, 'register_custom_taxonomies'));
 
         // Add form fields for venues taxonomy
-        add_action('aw-calendar-events-venues_add_form_fields', array($this, 'taxonomy_venues_add_custom_fields'), 10, 2);
+        add_action('aw_calendar_events_venues_add_form_fields', array($this, 'taxonomy_venues_add_custom_fields'), 10, 2);
 
         // Edit form fields for venues taxonomy
-        add_action('aw-calendar-events-venues_edit_form_fields', array($this, 'taxonomy_venues_edit_custom_fields'), 10, 2);
+        add_action('aw_calendar_events_venues_edit_form_fields', array($this, 'taxonomy_venues_edit_custom_fields'), 10, 2);
 
         // Save form fields for venues taxonomy
-        add_action('created_aw-calendar-events-venues', array($this, 'taxonomy_venues_save_custom_fields'), 10, 2);
-        add_action('edited_aw-calendar-events-venues', array($this, 'taxonomy_venues_save_custom_fields'), 10, 2);
+        add_action('created_aw_calendar_events_venues', array($this, 'taxonomy_venues_save_custom_fields'), 10, 2);
+        add_action('edited_aw_calendar_events_venues', array($this, 'taxonomy_venues_save_custom_fields'), 10, 2);
 
         // Add admin menu
         add_action('admin_menu', array($this, 'add_alphynweb_events_calendar_admin_menu'), 9);

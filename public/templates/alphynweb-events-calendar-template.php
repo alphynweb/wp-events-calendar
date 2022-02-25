@@ -108,7 +108,7 @@ if ($query->have_posts()) { ?>
             if ($events_on_current_day) {
                 foreach ($events_on_current_day as $post) {
                     setup_postdata($post);
-                    $venues = get_the_terms(get_the_ID(), 'aw-calendar-events-venues'); ?>
+                    $venues = get_the_terms(get_the_ID(), 'aw_calendar_events_venues'); ?>
 
                     <h2><?php the_title(); ?></h2>
 
