@@ -25,3 +25,7 @@ register_taxonomy('aw_calendar_events_venues', array('aw_calendar_events'), arra
     ),
     'has_archive' => true
 ));
+
+register_term_meta('aw_calendar_events_venues', '_venue_image', array('show_in_rest' => true));
+register_term_meta('aw_calendar_events_venues', '_venue_image_url', array('show_in_rest' => true));
+register_term_meta('aw_calendar_events_venues', '_venue_url', array('show_in_rest' => true));

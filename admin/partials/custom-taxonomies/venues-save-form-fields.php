@@ -12,6 +12,9 @@ $venue_meta['_venue_image'] = isset($_POST['_venue_image']) ? $_POST['_venue_ima
 // Venue url
 $venue_meta['_venue_url'] = isset($_POST['_venue_url']) ? sanitize_url($_POST['_venue_url']) : null;
 
+// Work out venue image url (for adding to meta for rest api)
+$venue_meta['_venue_image_url'] = isset($_POST['_venue_image']) ? wp_get_attachment_url($_POST['_venue_image']) : null;
+
 // Loop through the meta keys and save
 $meta_keys = array_keys($venue_meta);
 
