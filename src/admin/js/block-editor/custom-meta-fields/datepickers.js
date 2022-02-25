@@ -10,7 +10,7 @@ import * as dayjs from 'dayjs';
 
 const Alphynweb_Event_Date_Meta_Fields = ({ postType, postMeta, setPostMeta }) => {
     // If wrong post type then return
-    if (postType !== 'aw-calendar-events') {
+    if (postType !== 'aw_calendar_events') {
         return null;
     }
 

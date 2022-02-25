@@ -12,7 +12,7 @@ $events = [];
 
 // Display events posts
 $args = array(
-    'post_type' => 'aw-calendar-events',
+    'post_type' => 'aw_calendar_events',
     'posts_per_page' => -1,
 );
 

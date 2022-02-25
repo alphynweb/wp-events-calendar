@@ -78,7 +78,7 @@ var Alphynweb_Event_Date_Meta_Fields = function Alphynweb_Event_Date_Meta_Fields
       setPostMeta = _ref.setPostMeta;
 
   // If wrong post type then return
-  if (postType !== 'aw-calendar-events') {
+  if (postType !== 'aw_calendar_events') {
     return null;
   } // Event date state
 

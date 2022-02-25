@@ -1,6 +1,6 @@
 <?php
 
-register_taxonomy('aw_calendar_events_venues', array('aw-calendar-events'), array(
+register_taxonomy('aw_calendar_events_venues', array('aw_calendar_events'), array(
     'hierarchical' => true,
     'labels' => array(
         'name' => _x('Venues', 'taxonomy general name'),

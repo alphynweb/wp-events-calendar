@@ -32,4 +32,4 @@ $args = array(
 );
 
 // Post type, $args - the Post Type string can be MAX 20 characters
-register_post_type('aw-calendar-events', $args);
+register_post_type('aw_calendar_events', $args);

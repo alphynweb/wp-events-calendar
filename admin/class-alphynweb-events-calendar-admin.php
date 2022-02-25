@@ -130,7 +130,7 @@ class Alphynweb_Events_Calendar_Admin
 
     public function register_custom_post_types()
     {
-        require_once 'partials/custom-post-types/aw-calendar-events.php';
+        require_once 'partials/custom-post-types/aw_calendar_events.php';
     }
 
     public function register_custom_taxonomies()
@@ -201,7 +201,7 @@ class Alphynweb_Events_Calendar_Admin
 
     public function register_post_type_custom_meta_fields()
     {
-        register_post_meta('aw-calendar-events', '_event_start_date', [
+        register_post_meta('aw_calendar_events', '_event_start_date', [
             'show_in_rest' => true,
             'single' => true,
             'type' => 'string',
@@ -210,7 +210,7 @@ class Alphynweb_Events_Calendar_Admin
             }
         ]);
 
-        register_post_meta('aw-calendar-events', '_event_end_date', [
+        register_post_meta('aw_calendar_events', '_event_end_date', [
             'show_in_rest' => true,
             'single' => true,
             'type' => 'string',
