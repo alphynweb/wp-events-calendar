@@ -32,7 +32,7 @@ function alphynweb_media_upload_field($name, $value = null, $button_text = '', $
         // $image_attributes[0] - image URL
         // $image_attributes[1] - image width
         // $image_attributes[2] - image height
-        $remove_button_display = 'inline-block;';
+        $remove_button_display = 'inline-block;'; // Class
         $upload_button_html = '"><img src="' . $image_attributes[0] . '" style="max-width:95%;display:block;" />';
         $display = 'inline-block';
     }
