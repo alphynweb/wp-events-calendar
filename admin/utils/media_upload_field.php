@@ -28,6 +28,7 @@ function alphynweb_media_upload_field($name, $value = null, $button_text = '', $
     }
 
     if ($image_attributes = wp_get_attachment_image_src($value, $image_size)) {
+        // Image attributes
         // $image_attributes[0] - image URL
         // $image_attributes[1] - image width
         // $image_attributes[2] - image height
